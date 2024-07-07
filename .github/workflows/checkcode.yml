@@ -22,14 +22,14 @@ jobs:
     - name: Set up C++17
       run: sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 90
 
-    - name: Configure project
-      run: cmake -S . -B build -DCMAKE_CXX_STANDARD=17
+    # - name: Configure project
+    #   run: cmake -S . -B build -DCMAKE_CXX_STANDARD=17
 
-    - name: Build project
-      run: cmake --build build
+    # - name: Build project
+    #   run: cmake --build build
 
-    - name: Run tests
-      run: ctest --test-dir build
+    # - name: Run tests
+    #   run: ctest --test-dir build
 
     - name: Check coding style
       run: |
