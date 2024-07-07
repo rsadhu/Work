@@ -1,71 +1,71 @@
-name: CI/CD Pipeline for C++
+# name: CI/CD Pipeline for C++
 
-on:
-  push:
-    branches:
-      - gfg
-  pull_request:
-    branches:
-      - gfg
+# on:
+#   push:
+#     branches:
+#       - gfg
+#   pull_request:
+#     branches:
+#       - gfg
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y cmake g++-10 clang-format
+#     - name: Install dependencies
+#       run: sudo apt-get update && sudo apt-get install -y cmake g++-10 clang-format
 
-    - name: Set up C++17
-      run: sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 90
+#     - name: Set up C++17
+#       run: sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 90
 
-    # - name: Configure project
-    #   run: cmake -S . -B build -DCMAKE_CXX_STANDARD=17
+#     # - name: Configure project
+#     #   run: cmake -S . -B build -DCMAKE_CXX_STANDARD=17
 
-    # - name: Build project
-    #   run: cmake --build build
+#     # - name: Build project
+#     #   run: cmake --build build
 
-    # - name: Run tests
-    #   run: ctest --test-dir build
+#     # - name: Run tests
+#     #   run: ctest --test-dir build
 
-    # - name: Check coding style
-    #   run: |
-    #     find . -name "*.h" -o -name "*.cpp" | xargs clang-format -i --style=WebKit
-    #     git diff --exit-code
+#     # - name: Check coding style
+#     #   run: |
+#     #     find . -name "*.h" -o -name "*.cpp" | xargs clang-format -i --style=WebKit
+#     #     git diff --exit-code
 
-  verify_commit:
-    runs-on: ubuntu-latest
-    needs: build
+#   verify_commit:
+#     runs-on: ubuntu-latest
+#     needs: build
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
 
-    - name: Verify commit messages
-      run: |
-        if [[ $(git log -1 --pretty=format:'%s') =~ ^[a-z]+([A-Z][a-z]+)*$ ]]; then
-          echo "Commit message is in camelCase."
-        else
-          echo "Commit message is not in camelCase."
-          exit 1
-        fi
+#     - name: Verify commit messages
+#       run: |
+#         if [[ $(git log -1 --pretty=format:'%s') =~ ^[a-z]+([A-Z][a-z]+)*$ ]]; then
+#           echo "Commit message is in camelCase."
+#         else
+#           echo "Commit message is not in camelCase."
+#           exit 1
+#         fi
 
-  merge:
-    runs-on: ubuntu-latest
-    needs: [build, verify_commit]
+#   merge:
+#     runs-on: ubuntu-latest
+#     needs: [build, verify_commit]
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
 
-    - name: Merge if all checks pass
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git checkout gfg
-        git merge --ff-only ${{ github.head_ref }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     - name: Merge if all checks pass
+#       run: |
+#         git config --global user.name 'github-actions[bot]'
+#         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+#         git checkout gfg
+#         git merge --ff-only ${{ github.head_ref }}
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
