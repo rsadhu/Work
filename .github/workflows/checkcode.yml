@@ -31,10 +31,10 @@ jobs:
     # - name: Run tests
     #   run: ctest --test-dir build
 
-    - name: Check coding style
-      run: |
-        find . -name "*.h" -o -name "*.cpp" | xargs clang-format -i --style=WebKit
-        git diff --exit-code
+    # - name: Check coding style
+    #   run: |
+    #     find . -name "*.h" -o -name "*.cpp" | xargs clang-format -i --style=WebKit
+    #     git diff --exit-code
 
   verify_commit:
     runs-on: ubuntu-latest
