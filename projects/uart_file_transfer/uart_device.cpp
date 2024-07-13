@@ -40,9 +40,10 @@ size_t UART::send(const std::string &data)
 std::string UART::receive(size_t size)
 {
     std::string str;
+
     if (read(fd_, str.data(), size) == -1)
     {
         std::cout << "data wasn't read\n";
     }
-    return str;
+    return str.data();
 }
