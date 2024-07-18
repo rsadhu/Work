@@ -1,0 +1,14 @@
+set(SRCS ../xmodem.cpp sm_communicator.cpp)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+find_package(Boost REQUIRED COMPONENTS system)
+include_directories(${Boost_INCLUDE_DIRS})
+
+add_executable(p1 process1.cpp ${SRCS})
+target_link_libraries(p1 ${Boost_LIBRARIES})
+
+
+add_executable(p2 process1.cpp ${SRCS})
+target_link_libraries(p2 ${Boost_LIBRARIES})

@@ -1,8 +1,9 @@
 #include <fcntl.h>
-
 #include <unistd.h>
 #include <termios.h>
-#include "uart_device.h"
+#include "uart.h"
+#include <thread>
+#include <chrono>
 
 UART::UART(const std::string &device, int baudrate)
 {
@@ -34,6 +35,7 @@ UART::~UART()
 
 size_t UART::send(const std::string &data)
 {
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     return write(fd_, data.c_str(), data.size());
 }
 
@@ -41,9 +43,38 @@ std::string UART::receive(size_t size)
 {
     std::string str;
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     if (read(fd_, str.data(), size) == -1)
     {
-        std::cout << "\ndata wasn't read\n";
+        std::cout << "data wasn't read\n";
     }
     return str.data();
+}
+
+void UART::sendByte(uint8_t byte)
+{
+    std::string str;
+    str += byte;
+    send(str);
+}
+
+void UART::receiveByte(uint8_t &byte)
+{
+    std::string str = receive(1);
+    byte = str[0];
+}
+
+void UART::send(const std::vector<uint8_t> &data)
+{
+    for (auto &ele : data)
+    {
+        this->sendByte(ele);
+    }
+}
+
+void UART::receive(std::vector<uint8_t> &data)
+{
+    uint8_t byte;
+    receiveByte(byte);
+    data.push_back(byte);
 }

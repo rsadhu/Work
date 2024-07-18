@@ -1,0 +1,8 @@
+set(SRCS ../xmodem.cpp uart.cpp )
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+add_executable(sender  sender.cpp ${SRCS})
+add_executable(receiver  receiver.cpp ${SRCS})
+

@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.5.0)
+project(xmodem_protocol)
+
+
+# Default to Release build if not specified
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type (Release or Debug)" FORCE)
+endif()
+
+# Add options for debug and release builds
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+
+# For Debug build
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")
+
+# For Release build
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+
+add_subdirectory(task1)
+add_subdirectory(task2)
+add_subdirectory(tests)

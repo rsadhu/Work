@@ -1,0 +1,16 @@
+# Enable testing
+enable_testing()
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+find_package(GTest REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system)
+
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${GTEST_INCLUDE_DIRS})
+
+add_executable(TestMain test_main.cpp ../task2/uart.cpp ../task2/serial_communication.cpp)
+target_link_libraries(TestMain ${GTEST_LIBRARIES} pthread ${Boost_LIBRARIES})
+
+add_test(NAME TestMain COMMAND TestMain)

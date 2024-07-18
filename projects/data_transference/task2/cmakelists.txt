@@ -1,0 +1,16 @@
+set(SRCS ../xmodem.cpp serial_communication.cpp  uart.cpp)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+find_package(Boost REQUIRED COMPONENTS system)
+include_directories(${Boost_INCLUDE_DIRS})
+
+
+add_executable(sender  sender.cpp ${SRCS})
+target_link_libraries(sender ${Boost_LIBRARIES})
+
+
+add_executable(receiver  receiver.cpp ${SRCS})
+target_link_libraries(receiver ${Boost_LIBRARIES})
+
