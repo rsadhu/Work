@@ -1,0 +1,8 @@
+[requires]
+gstreamer/1.24.7
+openssl/3.3.2
+protobuf/5.27.0
+qt/6.7.3
+[generators]
+CMakeToolchain
+CMakeDeps
